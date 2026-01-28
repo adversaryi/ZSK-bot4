@@ -1,0 +1,18 @@
+name: Keep Koyeb Awake
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # каждые 10 минут
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Koyeb health endpoint
+        run: |
+          set -e
+          URL="https://adverse-danice-zsk-cdd84e2e.koyeb.app/health"
+          echo "Pinging $URL"
+          curl -fsS "$URL" >/dev/null
+          echo "OK"
